@@ -11,4 +11,3 @@ def sales_reports(log_file): #this line is creating a function via def declarati
 
 sales_reports(log_file) #this is calling the created function over the linked file / database
 
-
