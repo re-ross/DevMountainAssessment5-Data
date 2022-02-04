@@ -9,5 +9,13 @@ def sales_reports(log_file): #this line is creating a function via def declarati
             print(line) # if so print that line it came cfrom
 
 
-sales_reports(log_file) #this is calling the created function over the linked file / database
+# #this is calling the created function over the linked file / database
 
+# extra credit
+def checkTen(log_file):
+    for line in log_file:
+        line = line.split()
+        if int(line[2]) > 10:
+            print(line)
+
+checkTen(log_file)
