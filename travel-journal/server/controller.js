@@ -241,13 +241,35 @@ module.exports = {
       .catch((err) => console.log(err));
   },
 
+  createCity: (req, res) => {
+    let { name, rating, countryId } = req.body;
+
+    sequelize
+      .query(
+        `insert into cities (name, rating, country_id)
+    values ('${name}', ${rating}, ${countryId})`
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
+
   getCities: (req, res) => {
     sequelize
       .query(
-        `select city.city_id, country.country_id country
-    from cities city
-    join countries country ON city.country_id = country.country_id`
+        `SELECT c.city_id, c.name AS city, c.rating, co.country_id, co.name AS country 
+        FROM cities c
+        JOIN countries co ON c.country_id = co.country_id
+        ORDER BY c.rating DESC;
+        `
       )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
+
+  deleteCity: (req, res) => {
+    let { id } = req.params;
+    sequelize
+      .query(`delete from cities where city_id = ${id}`)
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
   },
