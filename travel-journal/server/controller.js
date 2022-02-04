@@ -240,4 +240,15 @@ module.exports = {
       .then((dbRes) => res.status(200).send(dbRes[0]))
       .catch((err) => console.log(err));
   },
+
+  getCities: (req, res) => {
+    sequelize
+      .query(
+        `select city.city_id, country.country_id country
+    from cities city
+    join countries country ON city.country_id = country.country_id`
+      )
+      .then((dbRes) => res.status(200).send(dbRes[0]))
+      .catch((err) => console.log(err));
+  },
 };
